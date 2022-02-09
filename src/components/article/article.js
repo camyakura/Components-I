@@ -87,6 +87,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: "Batman agrees to come to BloomTech",
+    date: "April 12th, 2021",
+    firstParagraph: " I'm Batman I will go back to Gotham and I will fight men Iike this but I will not become an executioner. It's ends here. I seek the means to fight injustice. To turn fear against those who prey on the fearful. I'm not wearing hockey pads. It's ends here. Swear to me! Bats frighten me. It's time my enemies shared my dread. The first time I stole so that I wouldn't starve, yes. I lost many assumptions about the simple nature of right and wrong. And when I traveled I learned the fear before a crime and the thrill of success. But I never became one of them.",
+    secondParagraph: " Swear to me! I seek the means to fight injustice. To turn fear against those who prey on the fearful. Bruce Wayne, eccentric billionaire. I seek the means to fight injustice. To turn fear against those who prey on the fearful. Hero can be anyone. Even a man knowing something as simple and reassuring as putting a coat around a young boy shoulders to let him know the world hadn't ended.",
+    thirdParagraph: " I seek the means to fight injustice. To turn fear against those who prey on the fearful. It's ends here. I can't do that as Bruce Wayne... as a man. I'm flesh and blood. I can be ignored, destroyed. But as a symbol, I can be incorruptible, I can be everlasting."
   }
 ];
 
@@ -94,7 +101,6 @@ const data = [
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
-
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
@@ -103,6 +109,56 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+*/
+const articles = document.querySelector(".articles")
+
+function articleMaker(articleObj){
+  const article = document.createElement("div");
+  const articleTitle = document.createElement("h2");
+  const articleDate = document.createElement('p');
+  const paragraph1 = document.createElement('p');
+  const paragraph2 = document.createElement('p');
+  const paragraph3 = document.createElement('p');
+  const expandButton = document.createElement('span');
+
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(articleDate);
+  article.appendChild(paragraph1);
+  article.appendChild(paragraph2);
+  article.appendChild(paragraph3);
+  article.appendChild(expandButton);
+
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  expandButton.classList.add('expandButton')
+
+  articleTitle.textContent = articleObj.title;
+  articleDate.textContent = articleObj.date;
+  paragraph1.textContent = articleObj.firstParagraph;
+  paragraph2.textContent = articleObj.secondParagraph;
+  paragraph3.textContent = articleObj.thirdParagraph;
+  expandButton.textContent = "+"
+
+
+
+  expandButton.addEventListener('click', event => {
+    article.classList.toggle('article-open')
+  })
+  return article;
+}
+
+const articleElements = data.map(articleObj => {
+  return articleMaker(articleObj);
+})
+
+articleElements.forEach(articleElem => {
+  articles.appendChild(articleElem);
+})
+
+
+/*
+  
 
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
